@@ -32,7 +32,7 @@ Sincerely,
 **The SIRR Framework Development Team**  
 *Lead Author & Architect:* Robert S. / JustbUnknown  
 *Official Research Node:* https://ideauknown.com (Under Maintenance)  
-*Active Repository:* https://github.com  
+*Active Repository:* https://github.com/JustbUnknown/SIRR-Core-Engine  
 *Repository Status:* Open for Global Distribution & Academic Peer Review  
  
 
