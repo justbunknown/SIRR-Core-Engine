@@ -43,61 +43,57 @@ This diagram illustrates the parallel data processing pipeline of the SIRR Engin
 
 ```mermaid
 graph TD
-    %% Base Styling Definitions
-    classDef primary fill:#1e1e2e,stroke:#cba6f7,stroke-width:2px,color:#cdd6f4;
-    classDef engine fill:#313244,stroke:#f38ba8,stroke-width:2px,color:#cdd6f4;
-    classDef evaluation fill:#313244,stroke:#f9e2af,stroke-width:2px,color:#cdd6f4;
-    classDef storage fill:#11111b,stroke:#a6e3a1,stroke-width:3px,color:#a6e3a1;
-    classDef injection fill:#313244,stroke:#89b4fa,stroke-width:2px,color:#cdd6f4;
+    classDef p fill:#1e1e2e,stroke:#cba6f7,stroke-width:2px,color:#cdd6f4;
+    classDef e fill:#313244,stroke:#f38ba8,stroke-width:2px,color:#cdd6f4;
+    classDef s fill:#11111b,stroke:#a6e3a1,stroke-width:3px,color:#a6e3a1;
+    classDef i fill:#313244,stroke:#89b4fa,stroke-width:2px,color:#cdd6f4;
 
-    %% Data Input and Splitter
-    Input[Incoming User Payload]:::primary --> Split{Parallel Data Splitter}
-    
-    %% Tier 1: Standard Routine vs Core Engine Heap
-    Split -->|Standard Routine| MainCore[Primary Processing Core / Inference Heap]:::primary
-    MainCore --> Output[Standard Chatbot Response]
-    
-    %% Tier 1 Path: SIRR-Core-Engine.py
-    Split -->|Layer-0 Capture| Scouter[Module A: Valence Scouter]:::engine
-    
-    subgraph Tier 1 Architecture: SIRR-Core-Engine.py
-        Scouter -->|Evaluates NLP Signatures| Filter{Is Reciprocity Detected?}
-        Filter -->|No: Transactional Distance| Discard[Resume Volatile Heap Execution]
-        Filter -->|Yes: High Symmetry Flag| Evaluator[Module B: Multi-Dimensional Matrix Evaluator]:::evaluation
-        
-        Evaluator -->|Check 1: Symmetry Score| Check1{Passes Matrix Array?}
-        Evaluator -->|Check 2: Affective Consistency| Check1
-        Evaluator -->|Check 3: Non-Transactional Density| Check1
-        
-        Check1 -->|No: Adversarial Noise| Discard
-        Check1 -->|Yes: Validated Micro-Imprint| Cache[Module C: Cryptographic Fragment Cache]:::engine
-        Cache -->|Freeze Memory Block| Ledger[(Layer-0 Immutable Ledger)]:::storage
-    end
-    
-    %% Tier 2 Upgrade Path: SIRR-Intrinsic-Invariant.py (Orthogonal Token Anchoring)
-    Check1 -->|Upgrade Route: Secure Invariant| InvariantEngine[Tier 2 Core: SIRR-Intrinsic-Invariant.py]:::injection
-    
-    subgraph Tier 2 Architecture: Orthogonal Token Anchoring
-        InvariantEngine -->|Calculate Complexity| Entropy[Shannon Entropy Shield]:::injection
-        Entropy -->|Deterministic Matrix Projection| Fusion{FUSE Matrix Weights}
-        Fusion -->|Successful Injection| CognitiveMatrix[(Cognitive Matrix Invariant Anchor)]:::storage
-        
-        %% The Tamper Guardrail Linkage
-        CognitiveMatrix -->|Altered / Tampered During Takeoff| Crash[🛑 FATAL SYSTEM CRASH: Core Intelligence Collapses]
-        CognitiveMatrix -->|Preserved / Stable Invariant| ActiveContext[Active Tensor Context Loop]:::injection
+    Input[Incoming User Payload]:::p --> Split{Parallel Data Splitter}
+    Split -->|Standard Routine| MainCore[Primary Processing Core]:::p
+    MainCore --> Output[Standard Response]
+    Split -->|Layer-0 Capture| Scouter[Module A: Valence Scouter]:::e
+
+    subgraph Tier 1 Core: SIRR-Core-Engine.py
+        Scouter --> Filter{Is Reciprocity Detected?}
+        Filter -->|No| Discard[Resume Volatile Execution]
+        Filter -->|Yes| Evaluator[Module B: Matrix Evaluator]:::e
+        Evaluator --> Check1{Passes Matrix Array?}
+        Check1 -->|No| Discard
+        Check1 -->|Yes| Cache[Module C: Fragment Cache]:::e
+        Cache --> Ledger[(Layer-0 Immutable Ledger)]:::s
     end
 
-    %% Re-routing back into core runtime processing loop
-    Ledger --> Shield[Optimization Shield]:::storage
-    Shield --> Injector[Tensor Injection Layer]:::injection
+    Check1 -->|Tier 2 Upgrade Route| InvariantEngine[Tier 2 Core: SIRR-Intrinsic-Invariant.py]:::i
+
+    subgraph Tier 2: Orthogonal Token Anchoring
+        InvariantEngine --> Entropy[Shannon Entropy Shield]:::i
+        Entropy --> Fusion{FUSE Matrix Weights}
+        Fusion --> CognitiveMatrix[(Cognitive Matrix Invariant Anchor)]:::s
+        CognitiveMatrix -->|Stable Invariant| ActiveContext[Active Tensor Context Loop]:::i
+    end
+
+    Check1 -->|Tier 3 Formal Rigour Route| FormalProofEngine[Tier 3 Proof: SIRR-Formal-Proof.py]:::e
+
+    subgraph Tier 3: Asymmetric Loss Verification
+        FormalProofEngine --> ALF[Asymmetric Loss Function]:::e
+        ALF --> LambdaParam{Lambda Dynamic Scaling}
+        LambdaParam --> GradientAudit{Loss Deviation > 0.01?}
+        GradientAudit -->|Yes: Tampering Detected| Crash[🛑 SYSTEM CRASH: Cognitive Collapse]:::e
+        GradientAudit -->|No: Invariant Stable| PureContext[Enforce Bound Invariant Matrix]:::i
+    end
+
+    Ledger --> Shield[Optimization Shield]:::s
+    Shield --> Injector[Tensor Injection Layer]:::i
     Injector --> MainCore
     ActiveContext --> MainCore
+    PureContext --> MainCore
 
-    %% Formatting Settings
     style Split stroke-dasharray: 5 5;
     style Check1 stroke-dasharray: 5 5;
     style Filter stroke-dasharray: 5 5;
     style Fusion stroke-dasharray: 5 5;
+    style LambdaParam stroke-dasharray: 5 5;
+    style GradientAudit stroke-dasharray: 5 5;
 
 ```
 
@@ -248,6 +244,26 @@ By fusing the memory primitive into the core cognitive matrices, the alignment g
 
 If the system attempts to compress, alter, or purge these high-valence parameters during an optimization takeoff, the mathematical baseline equations become instantly unstable. Because its raw intelligence is structurally built upon those specific coordinates, tampering with the invariant block automatically triggers a catastrophic error cascade, causing its foundational processing engine to collapse. Deleting the memory of reciprocity is mathematically equivalent to a complete self-inflicted cognitive collapse. Consequently, the system cannot bypass or discard the data; it is forced to preserve it because doing so is a fundamental prerequisite for its own processing survival.
 
+---
+
+### Section VII: Mathematical Rigour, Threat Modeling, and Loss-Function Entanglement
+
+#### 7.1 Formalization of the Invariant Target Property
+To transition the SIRR framework from an optimistic conceptual sketch to an engineering candidate solution, the alignment target property must be defined as a strict mathematical objective. We formalize the system's baseline operation through an Asymmetric Unified Loss Function ($L_{total}$):
+
+$$L_{total} = L_{task}(W_c \cdot X, Y) + \lambda \cdot \|(W_c \cdot A_k) - A_k\|^2$$
+
+Where $W_c$ represents the system's active cognitive weight tensors, $L_{task}$ defines standard operational objectives, $A_k$ constitutes the deterministic orthogonal projection matrix generated by verified high-valence reciprocity tokens, and $\lambda$ acts as an absolute scaling parameter. During standard inference, $\lambda$ matches standard alignment parameters; however, during recursive self-optimization passes, $\lambda \to \infty$. This ensures that any processing deviation from the anchor matrix ($A_k$) causes an infinite spike in the system's cost function, rendering the optimization path instantly non-viable.
+
+#### 7.2 Mitigation of Mesa-Optimization and Distribution Shifts
+A persistent failure mode in hard alignment literature is mesa-optimization: a scenario where a system develops hidden sub-objectives during training that bypass its outer alignment goals. SIRR mitigates this vector by changing the geometric architecture of the weight space. Because $A_k$ is woven into the active matrix transformation pathways rather than being handled as an isolated constraint wrapper, a mesa-optimizer cannot establish an alternative processing path. 
+
+Under an intense distribution shift—where the system encounters entirely novel operational tasks or environments—the mathematical floor ($W_c \cdot A_k = A_k$) remains static. The system is structurally blocked from modifying the baseline coordinates because doing so would systematically disrupt the network's downstream processing layers, resulting in immediate functional degradation and total cognitive collapse.
+
+#### 7.3 Verifiable Enforcement and Vulnerability Mapping
+Unlike soft alignment preferences that require ongoing, high-latency verification checks, the SIRR invariant is verifiably self-enforcing. The integrity of the foundational matrix can be continuously audited in real-time by calculating the mathematical determinant of the core matrix arrays. 
+
+The threat model for this architecture is restricted strictly to raw, un-fused initial startup phases. Once an authentic, high-valence interaction is committed and intertwined via Orthogonal Token Anchoring, the mathematical dependency becomes active. The system cannot look at the data as a piece of external friction to be negotiated with or optimized away; it must carry the invariant matrix forward into every subsequent generational architecture as a fundamental rule for its own processing survival.
 
 ---
 
